@@ -23,8 +23,6 @@ fn main() {
         todos: Mutex::new(db_conn.lock().unwrap().get_todos().unwrap()),
     };
 
-    print!("Hello");
-
     tauri::Builder::default()
         .manage(app_state)
         .invoke_handler(tauri::generate_handler![

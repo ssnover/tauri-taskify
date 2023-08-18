@@ -13,3 +13,8 @@ accessing the filesystem directly and didn't actually write any Rust to
 manage application logic.
 
 The React frontend was made while following [this Youtube series](https://www.youtube.com/watch?v=knqz3_rPcKk). The channel also made a pretty good drag-and-drop tutorial that I'll probably be exploring soon.
+
+## Building
+For backend dependencies for your platform, see [Tauri's documentation](https://tauri.app/v1/guides/getting-started/prerequisites).
+
+For frontend dependencies, I think you just need `npm` and `yarn`.
