@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import InputField from "./components/InputField";
+import TodoList from "./components/TodoList";
+import { Todo } from "./model";
+import { Todo as TodoData } from "./backend/models/Todo";
+import { add_todo, get_todos } from "./backend/api";
 
-function App() {
+const App: React.FC = () => {
+  const [todo, setTodo] = useState<string>("");
+  const [todo_list, set_todo_list] = useState<Todo[]>([]);
+
+  useEffect(() => {
+    get_todos().then((todos: TodoData[]) => set_todo_list(todos));
+  }, []);
+
+  const handle_add = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (todo) {
+      add_todo(todo);
+      get_todos().then((todos: TodoData[]) => set_todo_list(todos));
+      setTodo("");
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <span className="heading">Taskify</span>
+      <InputField todo={todo} setTodo={setTodo} handle_add={handle_add} />
+      <TodoList todos={todo_list} set_todos={set_todo_list} />
     </div>
   );
-}
+};
 
 export default App;
